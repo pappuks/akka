@@ -340,7 +340,7 @@ lazy val stream = akkaModule("akka-stream")
   .settings(AutomaticModuleName.settings("akka.stream"))
   .settings(OSGi.stream)
   .settings(Protobuf.settings)
-  .enablePlugins(BoilerplatePlugin)
+  .enablePlugins(BoilerplatePlugin, Jdk9)
 
 lazy val streamTestkit = akkaModule("akka-stream-testkit")
   .dependsOn(stream, testkit % "compile->compile;test->test")
@@ -409,7 +409,7 @@ lazy val persistenceTyped = akkaModule("akka-persistence-typed")
 lazy val clusterTyped = akkaModule("akka-cluster-typed")
   .dependsOn(
     actorTyped,
-    cluster,
+    cluster % "compile->compile;test->test;multi-jvm->multi-jvm",
     clusterTools,
     distributedData,
     persistence % "test->test",
